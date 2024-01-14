@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://btg2062nnq025"]
+
+[ext_resource type="Script" path="res://users.gd" id="1"]
+
+[node name="users" type="Node2D"]
+position = Vector2(10.0793, 1.25993)
+script = ExtResource("1")
+
+[node name="main" type="Panel" parent="."]
+offset_left = 292.0
+offset_top = 143.0
+offset_right = 480.0
+offset_bottom = 635.0
+
+[node name="container" type="VBoxContainer" parent="main"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 3.0
+offset_right = 185.0
+offset_bottom = 264.0
+
+[node name="h1" type="Label" parent="main/container"]
+layout_mode = 2
+text = "User List"
+
+[node name="sectionScroll" type="ScrollContainer" parent="main/container"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="users" type="VBoxContainer" parent="main/container/sectionScroll"]
+layout_mode = 2
+size_flags_horizontal = 3

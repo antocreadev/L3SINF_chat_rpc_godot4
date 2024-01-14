@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://c3f43x0hytf3r"]
+
+[ext_resource type="PackedScene" uid="uid://d2lhthf55wcf5" path="res://connect.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://cyvvu82f066d5" path="res://chats.tscn" id="2"]
+[ext_resource type="Script" path="res://chatContainer.gd" id="3"]
+[ext_resource type="PackedScene" uid="uid://btg2062nnq025" path="res://users.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://6i3jfwnq8ooh" path="res://notif.tscn" id="5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ce1pv"]
+
+[node name="chatContainer" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 95.0
+offset_top = -5.0
+offset_right = -30.0
+offset_bottom = -296.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3")
+
+[node name="chats" parent="." instance=ExtResource("2")]
+offset_left = 294.0
+offset_top = 134.0
+offset_right = 487.0
+offset_bottom = 205.0
+
+[node name="connect" parent="." instance=ExtResource("1")]
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 0.928
+offset_left = 7.0
+offset_top = 22.0
+offset_right = -321.0
+offset_bottom = 197.704
+scale = Vector2(0.830092, 0.884077)
+
+[node name="users" parent="." instance=ExtResource("4")]
+position = Vector2(544, -120)
+
+[node name="notif" parent="." instance=ExtResource("5")]
+layout_mode = 0
+offset_left = -64.0
+offset_top = 1.0
+offset_right = 518.0
+offset_bottom = 68.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ce1pv")

@@ -1,0 +1,81 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2lhthf55wcf5"]
+
+[ext_resource type="Script" path="res://connect.gd" id="1"]
+
+[node name="connect" type="Control"]
+layout_mode = 3
+anchor_right = 0.321
+anchor_bottom = 0.5
+offset_left = 13.0
+offset_top = 11.0
+offset_right = 11.296
+offset_bottom = 19.0
+scale = Vector2(0.869457, 0.884077)
+script = ExtResource("1")
+
+[node name="main" type="Panel" parent="."]
+layout_mode = 0
+offset_left = -215.0
+offset_top = -127.0
+offset_right = 1305.0
+offset_bottom = 722.0
+
+[node name="imputContainer" type="VBoxContainer" parent="main"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.00302666
+anchor_top = 0.00532915
+anchor_right = 0.0030267
+anchor_bottom = 0.00532915
+offset_left = 486.434
+offset_top = 274.133
+offset_right = 1041.43
+offset_bottom = 582.133
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="ip" type="LineEdit" parent="main/imputContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(2.08165e-12, 100)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 40
+text = "localhost"
+placeholder_text = "IP Adress"
+
+[node name="port" type="LineEdit" parent="main/imputContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "3002"
+placeholder_text = "Port"
+
+[node name="pseudo" type="LineEdit" parent="main/imputContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+placeholder_text = "pseudo"
+
+[node name="h1Connexion" type="Label" parent="main"]
+layout_mode = 0
+offset_left = 614.1
+offset_top = 163.196
+offset_right = 930.1
+offset_bottom = 253.196
+theme_override_font_sizes/font_size = 60
+text = "Connexion"
+
+[node name="submitBtn" type="Button" parent="main"]
+layout_mode = 0
+offset_left = 489.0
+offset_top = 644.147
+offset_right = 1044.0
+offset_bottom = 725.147
+theme_override_font_sizes/font_size = 40
+text = "Se connecter"
+
+[connection signal="button_down" from="main/submitBtn" to="." method="_on_Button_button_down"]
