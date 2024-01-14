@@ -8,7 +8,7 @@ func _ready():
 	pass
 	
 # --------- FUNCTIONS --------- #
-func updtae(users):
+func update(users):
 	clean()
 	for i in users:
 		print(i)
