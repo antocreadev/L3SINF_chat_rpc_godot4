@@ -23,7 +23,7 @@ func pop_up_new_client(pseudo: String):
 	notif.display_message(pseudo)
 
 func display_new_list(dict_users):
-	users.updat(dict_users)
+	users.updtae(dict_users)
 	
 func get_pseudo():
 	var login = get_node("connect")
