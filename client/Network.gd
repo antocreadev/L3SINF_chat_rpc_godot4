@@ -2,11 +2,11 @@ extends Control
 
 # --------- SIGNAL --------- #
 signal connected
-signal ask_pseudo
-signal message_received
-signal new_client2
-signal new_client
-signal deco_client
+signal askPseudo
+signal messageSended
+signal afficheNewUser
+signal newUser
+signal disconnectClient
 
 # --------- GLOBAL VARIABLE --------- #
 var server_info = {}
@@ -20,7 +20,7 @@ var my_data = {
 }
 
 # --------- LOAD --------- #
-@onready var CS = preload("res://chatContainer.tscn").instantiate()
+@onready var CS = preload("res://ChatScene.tscn").instantiate()
 
 # --------- _READY --------- #
 func _ready():
@@ -44,18 +44,15 @@ func pseudoClient():
 func timestampServer(timeSer, timeCli):
 	CLOCK_CLIENT = timeSer + (timeSer - Time.get_ticks_msec())
 	set_physics_process(true)
-	print(str(CLOCK_CLIENT) + "\n", str(timeSer) + "\n", str(timeCli))
 	
 @rpc("authority")
 func newUser(numUser, dict):
 	numUser -= 1
-	print(dict)
 	var usr = "user" + str(numUser)
 	if dict.has(usr):
 		user = dict
-		emit_signal("new_client", user[usr].pseudo)
-		emit_signal("new_client2", user)
-		print(user)
+		emit_signal("newUser", user[usr].pseudo)
+		emit_signal("afficheNewUser", user)
 	else:
 		print("Clé '%s' introuvable dans le dictionnaire" % usr)
 
@@ -66,7 +63,7 @@ func deleteUser(dict):
 
 @rpc("authority")
 func serverMessage(mess):
-	emit_signal("message_received", mess)
+	emit_signal("messageSended", mess)
 
 # --------- FUNCTIONS --------- #
 func join_server(ip, port, pseudo):
@@ -75,20 +72,19 @@ func join_server(ip, port, pseudo):
 	if (net.create_client(ip, int(port)) != OK):
 		return
 	multiplayer.multiplayer_peer = net
-	get_multiplayer().connected_to_server.connect(_on_connected_to_server)
+	get_multiplayer().connected_to_server.connect(connected_to_server)
 	get_multiplayer().server_disconnected.connect(_on_disconnected_from_server)
 	sharePseudoInChats(pseudo)
 
 func user_deco(dict):
 	user = dict
-	emit_signal("deco_client", user)
+	emit_signal("disconnectClient", user)
 
 func _on_connection_failed():
 	pass
 
 func _on_disconnected_from_server():
 	my_data["pseudoId"] = -1
-	print(my_data["pseudoId"] )
 
 func _physics_process(delta):
 	CLOCK_CLIENT += int(delta*1000)
@@ -97,18 +93,18 @@ func _physics_process(delta):
 		CLOCK_CLIENT += 1
 		DECIMAL_COLLECTOR -= 1
 
-func _on_connected_to_server():
+func connected_to_server():
 	getServeurTime.rpc_id(1, Time.get_ticks_msec())
 	
 	var pseudoId= multiplayer.get_unique_id()
 	my_data["pseudoId"] = pseudoId
-	emit_signal("ask_pseudo")
+	emit_signal("askPseudo")
 
 func sharePseudoInChats(p) :
 	emit_signal("connected", p) 
 	
 
-func send_pseudo(pseudo):
+func SendPseudo(pseudo):
 	pseudoClient.rpc_id(1, pseudo)
 
 func send_message_to_server(mess: Message):

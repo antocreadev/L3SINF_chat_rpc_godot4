@@ -1,34 +1,33 @@
 extends Control
 # --------- LOAD --------- #
-@onready var chats = $chats
-@onready var chatContainer = $connect
-@onready var users = $users
-@onready var notif = $notif
+@onready var chatBox = $chats
+@onready var connectionBox = $connect
+@onready var userList = $users
+@onready var msgBubble = $notif
 # --------- _READY --------- #
 func _ready():
-	chats.visible = false
+	chatBox.visible = false
 	
-	chatContainer.visible = true
-	users.visible = false
-	chats.connect("message_sent", Callable(self, "_on_chats_message_sent"))
-	chatContainer.connect("pseudo_sent", Callable(self, "get_pseudo"))
-	Network.connect("new_client", Callable(self, "pop_up_new_client"))
-	Network.connect("new_client2", Callable(self, "display_new_list"))
-	Network.connect("ask_pseudo", Callable(self, "get_pseudo"))
-	Network.connect("deco_client", Callable(self, "display_new_list"))
+	connectionBox.visible = true
+	userList.visible = false
+	chatBox.connect("message_sent", Callable(self, "_on_ChatBox_message_sent"))
+	connectionBox.connect("sendPseudo", Callable(self, "getPseudo"))
+	Network.connect("newUser", Callable(self, "notifNewClient"))
+	Network.connect("afficheNewUser", Callable(self, "afficheNewUsers"))
+	Network.connect("askPseudo", Callable(self, "getPseudo"))
+	Network.connect("disconnectClient", Callable(self, "afficheNewUsers"))
 
 # --------- FUNCTIONS --------- #
-func pop_up_new_client(pseudo: String):
-	print("pop up", pseudo)
-	notif.display_message(pseudo)
+func notifNewClient(pseudo: String):
+	msgBubble.afficheMessage(pseudo)
 
-func display_new_list(dict_users):
-	users.update(dict_users)
+func afficheNewUsers(users):
+	userList.updateUsers(users)
 	
-func get_pseudo():
+func getPseudo():
 	var login = get_node("connect")
-	var pseudo = login.send_pseudo()
-	Network.send_pseudo(pseudo)
+	var pseudo = login.SendPseudo()
+	Network.SendPseudo(pseudo)
 	
-func _on_chats_message_sent(mess):
+func _on_ChatBox_message_sent(mess):
 	Network.send_message_to_server(mess)

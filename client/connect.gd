@@ -1,6 +1,6 @@
 extends Control
 # --------- SIGNAL --------- #
-signal pseudo_sent
+signal sendPseudo
 # --------- LOAD --------- #
 @onready var inputIp = $main/imputContainer/ip
 @onready var inputPort = $main/imputContainer/port
@@ -11,7 +11,7 @@ func _ready():
 	pass
 
 # --------- FUNCTIONS --------- #
-func send_pseudo():
+func SendPseudo():
 	return inputPseudo.text
 
 func _on_Button_button_down():

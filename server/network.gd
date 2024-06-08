@@ -67,18 +67,16 @@ func createServer():
 	if (is_created != OK):
 		return
 	serverCreated.emit()
-	print("serveur créer ")
 	multiplayer.multiplayer_peer = net
-	get_multiplayer().peer_connected.connect(_on_player_connected)
-	get_multiplayer().peer_disconnected.connect(_on_player_disconnected)
+	get_multiplayer().peer_connected.connect(addUser)
+	get_multiplayer().peer_disconnected.connect(deleteUser)
 
-func _on_player_connected(id: int):
-	print("New client connected: %d"%[id])
+func addUser(id: int):
 	var usr = "user" + str(nbUser)
 	dict[usr] = {PSEUDO_ID: id, PSEUDO: "pseudo"}
 	nbUser += 1
 
-func _on_player_disconnected(id: int):
+func deleteUser(id: int):
 	var user = findUserByPseudoId(id)
 	if user:
 		dict.erase(user)
